@@ -3,6 +3,18 @@
 ## test in tests/test-cachematrix.R
 
 ## Create a cacheMatrix closure which can cache a matrix and its inverse
+##
+## Returns a list of functions which can be called:
+## get - gets the internal matrix
+## set - sets the internal matrix
+## setinverse - set the inverse
+## getinverse - get the inverse if one exists, NULL otherwise
+##
+## @param x constructor which should be a matrix, otherwise defaults to an empty matrix
+##
+## @examples
+## myMatrix <- makeCacheMatrix(matrix(1:4, 2, 2))
+## myMatrix$get() returns the equivalent of matrix(1:4, 2, 2)
 makeCacheMatrix <- function(x = matrix()) {
   #the cached inverse
   i <- NULL
@@ -26,9 +38,12 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-#returns the inverse of the cacheMatrix x, returning the cached value
-#if it exists, otherwise calculates and sets it first
-#this returns an actual R matrix, not a cacheMatrix
+## returns the inverse of the cacheMatrix x, returning the cached value
+## if it exists, otherwise calculates and caches it first
+## this returns an actual R matrix, not a cacheMatrix
+##
+## @examples
+## cacheSolve(makeCacheMatrix(myMatrix)) returns a result identical to solve(myMatrix)
 cacheSolve <- function(x, ...) {
   
   if(is.null(x$getinverse())) {
