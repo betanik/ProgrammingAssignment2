@@ -53,7 +53,7 @@ test_that("cacheSolve tries to get the inverse", {
   
   cacheSolve(myMatrix)
   
-  expect_true(numCalls > 1)
+  expect_true(numCalls >= 1)
   
 })
 
